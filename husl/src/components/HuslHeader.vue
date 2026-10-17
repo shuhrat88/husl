@@ -12,9 +12,9 @@ import huslLogo from '../assets/logo/husl-logo.png';
 
         <div class="header-button-list">
           <ul>
-            <li>О компании</li>
-            <li>Страны</li>
-            <li>Условия</li>
+            <li><a href="#about">О компании</a></li>
+            <li><a href="#geography">Страны</a></li>
+            <li><a href="#conditions">Условия</a></li>
           </ul>
         </div>
 
@@ -65,6 +65,11 @@ import huslLogo from '../assets/logo/husl-logo.png';
 
       &:hover {
         transform: scale(1.03);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
       }
     }
   }
