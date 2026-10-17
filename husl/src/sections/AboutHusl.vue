@@ -7,7 +7,7 @@ import {
 </script>
 
 <template>
-  <div class="about-section">
+  <div id="about" class="about-section">
     <div class="container">
       <div class="about-husl-content">
         <div class="husl-label">—— О КОМПАНИИ</div>

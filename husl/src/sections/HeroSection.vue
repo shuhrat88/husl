@@ -11,12 +11,18 @@
 
         <div class="hero-buttons">
           <div class="hero-button-conditions"><button type="button" data-contact-trigger>Получить прайс →</button></div>
-          <div class="hero-button-about"><button>О компании <span>→</span></button></div>
+          <div class="hero-button-about"><button type="button" @click="scrollToAbout">О компании <span>→</span></button></div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+const scrollToAbout = () => {
+  document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+</script>
 
 <style scoped lang="scss">
 .hero-section {
