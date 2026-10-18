@@ -37,7 +37,10 @@ const messages = {
 };
 
 const savedLocale = typeof window !== 'undefined' ? window.localStorage.getItem('husl-locale') : null;
-const locale = ref(['ru', 'kk', 'en'].includes(savedLocale) ? savedLocale : 'ru');
+// Keep one reactive instance while Vite replaces individual components in development.
+// Without this, a newly reloaded header can change a different locale ref than the sections.
+const locale = globalThis.__huslLocaleRef || ref(['ru', 'kk', 'en'].includes(savedLocale) ? savedLocale : 'ru');
+globalThis.__huslLocaleRef = locale;
 
 if (typeof document !== 'undefined') {
   document.documentElement.lang = locale.value === 'kk' ? 'kk' : locale.value;
