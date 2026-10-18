@@ -3,7 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const isOpen = ref(false);
 const isSent = ref(false);
-const form = ref({ name: '', phone: '', country: '', city: '', customCity: '' });
+const form = ref({ name: '', phone: '', country: '', city: '', customCity: '', comment: '' });
 
 const citiesByCountry = {
   'Армения': ['Ереван', 'Гюмри', 'Ванадзор', 'Другой город'],
@@ -74,6 +74,7 @@ onUnmounted(() => {
             <label>Страна<select v-model="form.country" required @change="changeCountry"><option value="" disabled>Выберите страну</option><option v-for="country in countries" :key="country" :value="country">{{ country }}</option></select></label>
             <label>Город<select v-model="form.city" :disabled="!form.country" required><option value="" disabled>Выберите город</option><option v-for="city in cities" :key="city" :value="city">{{ city }}</option></select></label>
             <label v-if="form.city === 'Другой город'">Укажите город<input v-model.trim="form.customCity" type="text" autocomplete="address-level2" required></label>
+            <label>Комментарий <small>необязательно</small><textarea v-model.trim="form.comment" rows="3" placeholder="Например, интересующий ассортимент или объём заказа"></textarea></label>
             <button type="submit">Отправить заявку <b>→</b></button>
           </form>
         </template>
@@ -95,7 +96,7 @@ onUnmounted(() => {
 .contact-modal__dialog > p, .contact-modal__success p { color: #55514c; font: 700 11px "Michroma", sans-serif; letter-spacing: 1px; margin-bottom: 16px; }
 h2 { font-size: clamp(32px, 4vw, 44px); line-height: 1.08; }.contact-modal__dialog > span, .contact-modal__success span { color: #55514c; display: block; font-size: 16px; line-height: 1.5; margin-top: 14px; }
 .contact-modal__close { background: transparent; border: 0; color: #55514c; font-size: 30px; line-height: 1; position: absolute; right: 16px; top: 12px; }
-form { display: grid; gap: 16px; margin-top: 28px; } label { color: #55514c; display: grid; font-size: 13px; gap: 7px; } input, select { background: transparent; border: 1px solid #d8d4ce; border-radius: 0; color: #171614; font-size: 16px; min-height: 48px; padding: 0 13px; } select:disabled { cursor: not-allowed; opacity: .55; }
+form { display: grid; gap: 16px; margin-top: 28px; } label { color: #55514c; display: grid; font-size: 13px; gap: 7px; } label small { color: #8a857f; font-size: 11px; font-weight: 400; } input, select, textarea { background: transparent; border: 1px solid #d8d4ce; border-radius: 0; color: #171614; font: inherit; font-size: 16px; min-height: 48px; padding: 0 13px; } textarea { min-height: 86px; padding: 12px 13px; resize: vertical; } select:disabled { cursor: not-allowed; opacity: .55; }
 form button, .contact-modal__success button { background: #4c2f27; border: 1px solid #4c2f27; border-radius: 6px; color: #fff; font-size: 15px; margin-top: 8px; padding: 15px 20px; } button b { margin-left: 8px; }.contact-modal__success { padding: 38px 0 10px; }
 @media (max-width: 480px) { .contact-modal { align-items: end; padding: 0; }.contact-modal__dialog { max-height: 92dvh; padding: 34px 20px 26px; }.contact-modal__dialog h2 { font-size: 32px; } }
 </style>
