@@ -2,16 +2,13 @@
   <div class="hero-section">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-label">—— ОПТОВЫЕ ПОСТАВКИ</div>
-        <h1 class="hero-title">Мужская одежда<br>оптом</h1>
-        <div class="hero-description">
-          Мужская одежда оптом для магазинов. Актуальный ассортимент и
-          стабильные поставки по Казахстану и СНГ.
-        </div>
+        <div class="hero-label">{{ t('hero.eyebrow') }}</div>
+        <h1 class="hero-title"><template v-for="(line, index) in t('hero.title').split('|')" :key="line">{{ line }}<br v-if="index < t('hero.title').split('|').length - 1"></template></h1>
+        <div class="hero-description">{{ t('hero.description') }}</div>
 
         <div class="hero-buttons">
-          <div class="hero-button-conditions"><button type="button" data-contact-trigger>Получить прайс →</button></div>
-          <div class="hero-button-about"><button type="button" @click="scrollToAbout">О компании <span>→</span></button></div>
+          <div class="hero-button-conditions"><button type="button" data-contact-trigger>{{ t('nav.price') }} →</button></div>
+          <div class="hero-button-about"><button type="button" @click="scrollToAbout">{{ t('nav.about') }} <span>→</span></button></div>
         </div>
       </div>
     </div>
@@ -19,6 +16,10 @@
 </template>
 
 <script setup>
+import { useI18n } from '../composables/useI18n';
+
+const { t } = useI18n();
+
 const scrollToAbout = () => {
   document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
@@ -105,7 +106,6 @@ const scrollToAbout = () => {
 
   .hero-label { font-size: 12px; padding: 0 0 14px; letter-spacing: 1.5px; }
   .hero-title { font-size: clamp(36px, 10vw, 44px); }
-  .hero-title br { display: none; }
   .hero-description { font-size: 16px; max-width: 340px; }
   .hero-buttons { align-items: flex-start; flex-direction: column; gap: 18px; }
   .hero-button-conditions { margin-top: 26px; }

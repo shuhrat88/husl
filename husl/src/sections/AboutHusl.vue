@@ -4,22 +4,22 @@ import {
   Handshake,
   Truck
 } from 'lucide-vue-next'
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <div id="about" class="about-section">
     <div class="container">
       <div class="about-husl-content">
-        <div class="husl-label">—— О КОМПАНИИ</div>
-        <div class="husl-title">15 лет опыта<br>в оптовой торговле</div>
-        <div class="husl-description">
-          Помогаем магазинам зарабатывать: актуальный ассортимент, стабильная
-          логистика и личный менеджер на связи.
-        </div>
+        <div class="husl-label">{{ t('about.eyebrow') }}</div>
+        <div class="husl-title"><template v-for="(line, index) in t('about.title').split('|')" :key="line">{{ line }}<br v-if="index < t('about.title').split('|').length - 1"></template></div>
+        <div class="husl-description">{{ t('about.description') }}</div>
         <div class="husl-advantages">
-            <div class="actual-models"><Package class="box-models" /> Актуальные модели</div>
-            <div class="stable-supplies"><Truck class="truck-supplies" />Стабильные поставки</div>
-            <div class="long-term-cooperation"><Handshake class="handshake-cooperation" />Долгосрочное сотрудничество</div>
+            <div class="actual-models"><Package class="box-models" /> {{ t('about.models') }}</div>
+            <div class="stable-supplies"><Truck class="truck-supplies" />{{ t('about.delivery') }}</div>
+            <div class="long-term-cooperation"><Handshake class="handshake-cooperation" />{{ t('about.partnership') }}</div>
         </div>
       </div>
     </div>

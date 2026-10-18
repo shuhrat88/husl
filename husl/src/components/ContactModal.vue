@@ -1,9 +1,11 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { useI18n } from '../composables/useI18n';
 
 const isOpen = ref(false);
 const isSent = ref(false);
 const form = ref({ name: '', phone: '', country: '', city: '', customCity: '', comment: '' });
+const { t } = useI18n();
 
 const citiesByCountry = {
   'Армения': ['Ереван', 'Гюмри', 'Ванадзор', 'Другой город'],
@@ -19,6 +21,7 @@ const citiesByCountry = {
 
 const countries = Object.keys(citiesByCountry);
 const cities = computed(() => citiesByCountry[form.value.country] || []);
+const countryLabel = (country) => t('geography.countries')[countries.indexOf(country)] || country;
 
 const open = () => {
   isOpen.value = true;
@@ -61,29 +64,29 @@ onUnmounted(() => {
   <Teleport to="body">
     <div v-if="isOpen" class="contact-modal" role="presentation" @click.self="close">
       <section class="contact-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-        <button class="contact-modal__close" type="button" aria-label="Закрыть" @click="close">×</button>
+        <button class="contact-modal__close" type="button" :aria-label="t('modal.close')" @click="close">×</button>
 
         <template v-if="!isSent">
-          <p>—— ПОЛУЧИТЬ ПРАЙС</p>
-          <h2 id="contact-modal-title">Оставьте контакты</h2>
-          <span>Менеджер свяжется с вами и отправит условия.</span>
+          <p>{{ t('modal.eyebrow') }}</p>
+          <h2 id="contact-modal-title">{{ t('modal.title') }}</h2>
+          <span>{{ t('modal.description') }}</span>
 
           <form @submit.prevent="submit">
-            <label>Имя<input v-model.trim="form.name" type="text" autocomplete="name" required></label>
-            <label>Номер телефона<input v-model.trim="form.phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 700 000 00 00" required></label>
-            <label>Страна<select v-model="form.country" required @change="changeCountry"><option value="" disabled>Выберите страну</option><option v-for="country in countries" :key="country" :value="country">{{ country }}</option></select></label>
-            <label>Город<select v-model="form.city" :disabled="!form.country" required><option value="" disabled>Выберите город</option><option v-for="city in cities" :key="city" :value="city">{{ city }}</option></select></label>
-            <label v-if="form.city === 'Другой город'">Укажите город<input v-model.trim="form.customCity" type="text" autocomplete="address-level2" required></label>
-            <label>Комментарий <small>необязательно</small><textarea v-model.trim="form.comment" rows="3" placeholder="Например, интересующий ассортимент или объём заказа"></textarea></label>
-            <button type="submit">Отправить заявку <b>→</b></button>
+            <label>{{ t('modal.name') }}<input v-model.trim="form.name" type="text" autocomplete="name" required></label>
+            <label>{{ t('modal.phone') }}<input v-model.trim="form.phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 700 000 00 00" required></label>
+            <label>{{ t('modal.country') }}<select v-model="form.country" required @change="changeCountry"><option value="" disabled>{{ t('modal.selectCountry') }}</option><option v-for="country in countries" :key="country" :value="country">{{ countryLabel(country) }}</option></select></label>
+            <label>{{ t('modal.city') }}<select v-model="form.city" :disabled="!form.country" required><option value="" disabled>{{ t('modal.selectCity') }}</option><option v-for="city in cities" :key="city" :value="city">{{ city === 'Другой город' ? t('modal.otherCity') : city }}</option></select></label>
+            <label v-if="form.city === 'Другой город'">{{ t('modal.customCity') }}<input v-model.trim="form.customCity" type="text" autocomplete="address-level2" required></label>
+            <label>{{ t('modal.comment') }} <small>{{ t('modal.optional') }}</small><textarea v-model.trim="form.comment" rows="3" :placeholder="t('modal.commentPlaceholder')"></textarea></label>
+            <button type="submit">{{ t('modal.submit') }} <b>→</b></button>
           </form>
         </template>
 
         <div v-else class="contact-modal__success">
-          <p>—— ЗАЯВКА ПРИНЯТА</p>
-          <h2>Спасибо, {{ form.name }}!</h2>
-          <span>Мы свяжемся с вами по указанному номеру.</span>
-          <button type="button" @click="close">Закрыть</button>
+          <p>{{ t('modal.successEyebrow') }}</p>
+          <h2>{{ t('modal.thanks') }} {{ form.name }}!</h2>
+          <span>{{ t('modal.successText') }}</span>
+          <button type="button" @click="close">{{ t('modal.close') }}</button>
         </div>
       </section>
     </div>

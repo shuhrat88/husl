@@ -1,25 +1,32 @@
 <script setup>
 import huslLogo from '../assets/logo/husl-logo.png';
+import { useI18n } from '../composables/useI18n';
+
+const { locale, setLocale, t } = useI18n();
 </script>
 
 <template>
   <div class="header-container">
     <div class="container">
       <div class="header">
-        <a class="husl-logo" href="/" aria-label="HUSL — главная">
+        <a class="husl-logo" href="/" :aria-label="`HUSL — ${t('nav.about')}`">
           <img :src="huslLogo" alt="HUSL" width="350" height="86" fetchpriority="high">
         </a>
 
         <div class="header-button-list">
           <ul>
-            <li><a href="#about">О компании</a></li>
-            <li><a href="#geography">Страны</a></li>
-            <li><a href="#conditions">Условия</a></li>
+            <li><a href="#about">{{ t('nav.about') }}</a></li>
+            <li><a href="#geography">{{ t('nav.countries') }}</a></li>
+            <li><a href="#conditions">{{ t('nav.conditions') }}</a></li>
           </ul>
         </div>
 
+        <div class="language-switcher" aria-label="Language selector">
+          <button v-for="code in ['ru', 'kk', 'en']" :key="code" type="button" :class="{ 'is-active': locale === code }" @click="setLocale(code)">{{ code }}</button>
+        </div>
+
         <div class="header-button-price">
-          <button type="button" data-contact-trigger>Получить прайс →</button>
+          <button type="button" data-contact-trigger>{{ t('nav.price') }} →</button>
         </div>
       </div>
     </div>
@@ -33,7 +40,8 @@ import huslLogo from '../assets/logo/husl-logo.png';
 }
 .header {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: auto 1fr auto auto;
+  gap: 26px;
   justify-content: space-between;
 }
 
@@ -96,9 +104,13 @@ import huslLogo from '../assets/logo/husl-logo.png';
   }
 }
 
+.language-switcher { align-self: center; display: flex; gap: 4px; margin-top: 20px; }
+.language-switcher button { background: transparent; border: 0; color: #55514c; font-size: 11px; letter-spacing: .8px; padding: 6px 3px; text-transform: uppercase; }
+.language-switcher button.is-active { color: #171614; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+
 @media (max-width: 900px) {
   .header {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     align-items: center;
   }
 
@@ -109,6 +121,8 @@ import huslLogo from '../assets/logo/husl-logo.png';
   .header-button-price {
     margin-top: 20px;
   }
+
+  .language-switcher { justify-self: end; margin-top: 20px; }
 }
 
 @media (max-width: 480px) {
@@ -117,5 +131,8 @@ import huslLogo from '../assets/logo/husl-logo.png';
   .husl-logo img { width: 106px; }
   .header-button-price { margin-top: 14px; }
   .header-button-price button { font-size: 11px; padding: 12px 14px; }
+  .header { gap: 10px; }
+  .language-switcher { margin-top: 14px; }
+  .language-switcher button { font-size: 10px; }
 }
 </style>

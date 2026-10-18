@@ -1,9 +1,9 @@
 <script setup>
-const steps = [
-  ['01', 'Оставьте заявку', 'Получите прайс и условия.'],
-  ['02', 'Выберите модели', 'Поможем собрать заказ.'],
-  ['03', 'Получите поставку', 'Доставим в ваш город.'],
-];
+import { computed } from 'vue';
+import { useI18n } from '../composables/useI18n';
+
+const { t } = useI18n();
+const steps = computed(() => t('process.steps').map(([title, description], index) => [`0${index + 1}`, title, description]));
 </script>
 
 <template>
@@ -11,10 +11,10 @@ const steps = [
     <div class="container">
       <div class="process-section__header">
         <div>
-          <p class="section-label">—— НАЧАТЬ ЛЕГКО</p>
-          <h2>Три шага<br>к поставке</h2>
+          <p class="section-label">{{ t('process.eyebrow') }}</p>
+          <h2><template v-for="(line, index) in t('process.title').split('|')" :key="line">{{ line }}<br v-if="index < t('process.title').split('|').length - 1"></template></h2>
         </div>
-        <button type="button" data-contact-trigger>Получить прайс <span>→</span></button>
+        <button type="button" data-contact-trigger>{{ t('nav.price') }} <span>→</span></button>
       </div>
       <ol class="process-section__steps">
         <li v-for="step in steps" :key="step[0]">

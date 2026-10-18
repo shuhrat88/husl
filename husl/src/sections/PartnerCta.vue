@@ -1,11 +1,17 @@
+<script setup>
+import { useI18n } from '../composables/useI18n';
+
+const { t } = useI18n();
+</script>
+
 <template>
   <section class="partner-cta">
     <div class="container">
       <div class="partner-cta__content">
-        <p>—— ДЛЯ ВАШЕГО МАГАЗИНА</p>
-        <h2>Обновите ассортимент<br>без лишних рисков</h2>
-        <span>Оставьте заявку — отправим прайс и условия.</span>
-        <button type="button" data-contact-trigger>Получить прайс <b>→</b></button>
+        <p>{{ t('cta.eyebrow') }}</p>
+        <h2><template v-for="(line, index) in t('cta.title').split('|')" :key="line">{{ line }}<br v-if="index < t('cta.title').split('|').length - 1"></template></h2>
+        <span>{{ t('cta.description') }}</span>
+        <button type="button" data-contact-trigger>{{ t('nav.price') }} <b>→</b></button>
       </div>
     </div>
   </section>

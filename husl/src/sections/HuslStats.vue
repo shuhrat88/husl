@@ -1,13 +1,15 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { useI18n } from '../composables/useI18n';
 
 const statsSection = ref(null);
+const { locale, t } = useI18n();
 
 const stats = ref([
-  { value: 0, target: 15, suffix: " лет", label: "на рынке" },
-  { value: 0, target: 500, suffix: "+", label: "магазинов-партнёров" },
-  { value: 0, target: 10, suffix: "+", label: "стран сотрудничества" },
-  { value: 0, target: 100000, suffix: "+", label: "единиц товара" },
+  { value: 0, target: 15, suffix: 'stats.years', label: 'stats.market' },
+  { value: 0, target: 500, suffix: '+', label: 'stats.partners' },
+  { value: 0, target: 10, suffix: '+', label: 'stats.countries' },
+  { value: 0, target: 100000, suffix: '+', label: 'stats.units' },
 ]);
 
 let observer;
@@ -67,11 +69,11 @@ onUnmounted(() => {
     <section ref="statsSection" class="stats">
       <div v-for="stat in stats" :key="stat.target" class="stats__item">
         <strong class="stats__value">
-          {{ stat.value.toLocaleString("ru-RU") }}{{ stat.suffix }}
+          {{ stat.value.toLocaleString(locale === 'kk' ? 'kk-KZ' : locale === 'en' ? 'en-US' : 'ru-RU') }}{{ stat.suffix.startsWith('stats.') ? ` ${t(stat.suffix)}` : stat.suffix }}
         </strong>
 
         <span class="stats__label">
-          {{ stat.label }}
+          {{ t(stat.label) }}
         </span>
       </div>
     </section>

@@ -1,10 +1,16 @@
+<script setup>
+import { useI18n } from '../composables/useI18n';
+
+const { t } = useI18n();
+</script>
+
 <template>
   <footer class="husl-footer">
     <div class="container husl-footer__content">
-      <div><strong>HUSL</strong><span>Мужская одежда оптом</span></div>
-      <nav><a href="#">О компании</a><a href="#geography">Страны СНГ</a><a href="#conditions">Условия</a></nav>
-      <address>+7 700 123 45 67<br>г. Алматы, Казахстан</address>
-      <small>© 2024 HUSL. Все права защищены.</small>
+      <div><strong>HUSL</strong><span>{{ t('footer.tagline') }}</span></div>
+      <nav><a href="#about">{{ t('nav.about') }}</a><a href="#geography">{{ t('footer.countries') }}</a><a href="#conditions">{{ t('nav.conditions') }}</a></nav>
+      <address>+7 700 123 45 67<br>{{ t('footer.location') }}</address>
+      <small>{{ t('footer.rights') }}</small>
     </div>
   </footer>
 </template>

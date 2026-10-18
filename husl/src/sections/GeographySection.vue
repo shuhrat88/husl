@@ -1,9 +1,11 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import geographyMap from '../assets/backgrounds/geographymap-darkened.webp';
+import { useI18n } from '../composables/useI18n';
 
 const section = ref(null);
 const hasPlayed = ref(false);
+const { t } = useI18n();
 let observer;
 
 const playAnimation = () => {
@@ -32,18 +34,15 @@ onUnmounted(() => observer?.disconnect());
     <div class="container">
       <div class="geography-section__content">
         <div class="geography-section__copy">
-          <p class="geography-section__eyebrow">—— ГЕОГРАФИЯ</p>
-          <h2>Поставляем<br>по всему<br>СНГ</h2>
-          <p class="geography-section__description">
-            Одежда для вашего магазина — с понятными
-            условиями и стабильной доставкой.
-          </p>
-          <button class="geography-section__button" type="button" data-contact-trigger>Получить прайс <span>→</span></button>
+          <p class="geography-section__eyebrow">{{ t('geography.eyebrow') }}</p>
+          <h2><template v-for="(line, index) in t('geography.title').split('|')" :key="line">{{ line }}<br v-if="index < t('geography.title').split('|').length - 1"></template></h2>
+          <p class="geography-section__description">{{ t('geography.description') }}</p>
+          <button class="geography-section__button" type="button" data-contact-trigger>{{ t('nav.price') }} <span>→</span></button>
         </div>
 
         <div class="geography-section__visual">
           <div class="geography-section__map geography__map">
-            <img class="geography__map-image" :src="geographyMap" alt="Карта географии поставок">
+            <img class="geography__map-image" :src="geographyMap" :alt="t('geography.mapAlt')">
             <svg class="geography__routes" viewBox="0 0 1894 830" aria-hidden="true">
               <g class="routes">
                 <path class="route route--russia" pathLength="100" d="M1195 493 Q1175 345 1110 274" />
@@ -60,17 +59,17 @@ onUnmounted(() => observer?.disconnect());
                 <circle class="point point--belarus" cx="695" cy="364" r="5" />
                 <circle class="point point--tajikistan" cx="1260" cy="596" r="5" />
               </g>
-              <text class="almaty-label" x="1211" y="484">АЛМАТЫ</text>
-              <text class="destination-label destination-label--russia" x="1122" y="267">РОССИЯ</text>
-              <text class="destination-label destination-label--uzbekistan" x="990" y="550">УЗБЕКИСТАН</text>
-              <text class="destination-label destination-label--kyrgyzstan" x="1234" y="550">КЫРГЫЗСТАН</text>
-              <text class="destination-label destination-label--belarus" x="707" y="357">БЕЛАРУСЬ</text>
-              <text class="destination-label destination-label--tajikistan" x="1272" y="615">ТАДЖИКИСТАН</text>
+              <text class="almaty-label" x="1211" y="484">{{ t('geography.almaty') }}</text>
+              <text class="destination-label destination-label--russia" x="1122" y="267">{{ t('geography.russia') }}</text>
+              <text class="destination-label destination-label--uzbekistan" x="990" y="550">{{ t('geography.uzbekistan') }}</text>
+              <text class="destination-label destination-label--kyrgyzstan" x="1234" y="550">{{ t('geography.kyrgyzstan') }}</text>
+              <text class="destination-label destination-label--belarus" x="707" y="357">{{ t('geography.belarus') }}</text>
+              <text class="destination-label destination-label--tajikistan" x="1272" y="615">{{ t('geography.tajikistan') }}</text>
             </svg>
           </div>
 
-          <ul class="geography-section__countries" aria-label="Страны сотрудничества">
-            <li>Армения</li><li>Азербайджан</li><li>Беларусь</li><li>Казахстан</li><li>Кыргызстан</li><li>Молдова</li><li>Россия</li><li>Таджикистан</li><li>Узбекистан</li>
+          <ul class="geography-section__countries" :aria-label="t('geography.countriesLabel')">
+            <li v-for="country in t('geography.countries')" :key="country">{{ country }}</li>
           </ul>
         </div>
       </div>
