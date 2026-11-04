@@ -26,7 +26,7 @@ const { locale, setLocale, t } = useI18n();
         </div>
 
         <div class="header-button-price">
-          <button type="button" data-contact-trigger>{{ t('nav.price') }} →</button>
+          <button type="button" data-contact-trigger>{{ t('actions.primaryShort') }} →</button>
         </div>
       </div>
     </div>

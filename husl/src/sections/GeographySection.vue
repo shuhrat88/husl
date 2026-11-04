@@ -37,7 +37,7 @@ onUnmounted(() => observer?.disconnect());
           <p class="geography-section__eyebrow">{{ t('geography.eyebrow') }}</p>
           <h2><template v-for="(line, index) in t('geography.title').split('|')" :key="line">{{ line }}<br v-if="index < t('geography.title').split('|').length - 1"></template></h2>
           <p class="geography-section__description">{{ t('geography.description') }}</p>
-          <button class="geography-section__button" type="button" data-contact-trigger>{{ t('nav.price') }} <span>→</span></button>
+          <button class="geography-section__button" type="button" data-contact-trigger>{{ t('actions.discuss') }} <span>→</span></button>
         </div>
 
         <div class="geography-section__visual">

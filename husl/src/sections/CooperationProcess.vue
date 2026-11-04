@@ -14,7 +14,7 @@ const steps = computed(() => t('process.steps').map(([title, description], index
           <p class="section-label">{{ t('process.eyebrow') }}</p>
           <h2><template v-for="(line, index) in t('process.title').split('|')" :key="line">{{ line }}<br v-if="index < t('process.title').split('|').length - 1"></template></h2>
         </div>
-        <button type="button" data-contact-trigger>{{ t('nav.price') }} <span>→</span></button>
+        <button type="button" data-contact-trigger>{{ t('actions.request') }} <span>→</span></button>
       </div>
       <ol class="process-section__steps">
         <li v-for="step in steps" :key="step[0]">

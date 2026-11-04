@@ -11,7 +11,7 @@ const { t } = useI18n();
         <p>{{ t('cta.eyebrow') }}</p>
         <h2><template v-for="(line, index) in t('cta.title').split('|')" :key="line">{{ line }}<br v-if="index < t('cta.title').split('|').length - 1"></template></h2>
         <span>{{ t('cta.description') }}</span>
-        <button type="button" data-contact-trigger>{{ t('nav.price') }} <b>→</b></button>
+        <button type="button" data-contact-trigger>{{ t('actions.primary') }} <b>→</b></button>
       </div>
     </div>
   </section>

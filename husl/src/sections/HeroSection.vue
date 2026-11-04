@@ -7,7 +7,7 @@
         <div class="hero-description">{{ t('hero.description') }}</div>
 
         <div class="hero-buttons">
-          <div class="hero-button-conditions"><button type="button" data-contact-trigger>{{ t('nav.price') }} →</button></div>
+          <div class="hero-button-conditions"><button type="button" data-contact-trigger>{{ t('actions.primary') }} →</button></div>
           <div class="hero-button-about"><button type="button" @click="scrollToAbout">{{ t('nav.about') }} <span>→</span></button></div>
         </div>
       </div>
