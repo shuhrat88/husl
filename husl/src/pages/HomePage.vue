@@ -7,12 +7,14 @@ import BenefitsSection from '../sections/BenefitsSection.vue';
 import CooperationProcess from '../sections/CooperationProcess.vue';
 import PartnerCta from '../sections/PartnerCta.vue';
 import HuslFooter from '../components/HuslFooter.vue';
+import ClothingCarousel from '../components/ClothingCarousel.vue';
 
 </script>
 
 <template>
     <main class="home-page">
         <HeroSection />
+        <ClothingCarousel />
         <HuslStats />
         <AboutHusl />
         <GeographySection />
@@ -21,4 +23,3 @@ import HuslFooter from '../components/HuslFooter.vue';
         <HuslFooter />
     </main>
 </template>
-
