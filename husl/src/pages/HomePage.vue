@@ -22,16 +22,3 @@ import HuslFooter from '../components/HuslFooter.vue';
     </main>
 </template>
 
-<style>
-/* Phones: the countries block moves straight under the header. */
-@media (max-width: 760px) {
-  .home-page {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .home-page > #geography {
-    order: -1;
-  }
-}
-</style>
