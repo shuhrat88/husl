@@ -134,7 +134,9 @@ onUnmounted(() => observer?.disconnect());
 }
 
 @media (max-width: 760px) {
-  .geography-section { padding-top: 52px; &__content { grid-template-columns: 1fr; gap: 28px; } &__description { font-size: 16px; } &__countries { justify-content: flex-start; gap: 10px 20px; margin-top: 8px; } }
-  .desktop-only { display: none; }
+  .geography-section { padding: 26px 0 30px; &__content { grid-template-columns: 1fr; gap: 14px; } &__eyebrow { font-size: 11px; margin-bottom: 8px; } &__description { display: none; } &__button { margin-top: 16px; padding: 12px 16px; font-size: 14px; } &__countries { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 0; font-size: 12px; } }
+  .geography-section h2 { font-size: 28px; }
+  .geography__map { display: none; }
+  .geography-section__countries li { border: 1px solid rgba(199, 180, 152, .35); border-radius: 4px; padding: 8px 4px; text-align: center; }
 }
 </style>

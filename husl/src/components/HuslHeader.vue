@@ -97,6 +97,7 @@ const { locale, setLocale, t } = useI18n();
     transition: all 0.2s ease-in-out;
     border-radius: 6px;
     color: #fff;
+    white-space: nowrap;
 
     &:hover {
       transform: translateY(-2px);

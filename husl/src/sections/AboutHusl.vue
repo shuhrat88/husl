@@ -110,11 +110,12 @@ const advantages = [
 
 @media (max-width: 760px) {
   .about-section { background: #f3f0eb; }
-  .about-husl-content { align-items: flex-start; padding: 52px 0; }
-  .husl-label { font-size: 12px; padding: 0 0 14px; letter-spacing: 1.5px; }
-  .husl-title { font-size: clamp(32px, 9vw, 40px); line-height: 1.08; }
-  .husl-description { font-size: 17px; padding-top: 18px; }
-  .husl-advantages { grid-template-columns: 1fr; gap: 10px; padding: 30px 0 0; }
-  .husl-advantage { font-size: 17px; min-height: 48px; }
+  .about-husl-content { align-items: flex-start; padding: 28px 0 32px; }
+  .husl-label { font-size: 11px; padding: 0 0 10px; letter-spacing: 1.5px; }
+  .husl-title { font-size: clamp(28px, 8vw, 34px); line-height: 1.08; }
+  .husl-description { display: none; }
+  .husl-advantages { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 18px 0 0; width: 100%; }
+  .husl-advantage { flex-direction: column; text-align: center; gap: 8px; font-size: 13px; line-height: 1.25; }
+  .husl-advantage__icon { flex-basis: 40px; width: 40px; height: 40px; }
 }
 </style>

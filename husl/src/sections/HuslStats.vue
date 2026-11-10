@@ -116,10 +116,10 @@ onUnmounted(() => {
 }
 
 @media (max-width: 760px) {
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; padding: 24px 0; }
-  .stats__item { padding: 18px 10px; }
-  .stats__item:nth-child(2) { border-right: 0; }
-  .stats__value { font-size: clamp(30px, 9vw, 40px); }
-  .stats__label { font-size: 13px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 14px 0; }
+  .stats__item { padding: 6px 4px; }
+  .stats__item:not(:last-child) { border-right: 1px solid #d8d4ce; }
+  .stats__value { font-size: 17px; line-height: 1.2; }
+  .stats__label { font-size: 10.5px; line-height: 1.3; margin-top: 4px; }
 }
 </style>
