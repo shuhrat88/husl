@@ -10,7 +10,14 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+/* Chinese has no letter-spacing or uppercase convention; the Latin-tuned
+   tracking from the design makes CJK headings look broken. */
+:lang(zh) * {
+  letter-spacing: normal !important;
+  text-transform: none !important;
 }
 
 a {

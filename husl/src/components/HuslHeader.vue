@@ -1,6 +1,6 @@
 <script setup>
 import huslLogo from '../assets/logo/husl-logo.png';
-import { useI18n } from '../composables/useI18n';
+import { LOCALES, useI18n } from '../composables/useI18n';
 
 const { locale, setLocale, t } = useI18n();
 </script>
@@ -22,7 +22,7 @@ const { locale, setLocale, t } = useI18n();
         </div>
 
         <div class="language-switcher" aria-label="Language selector">
-          <button v-for="code in ['ru', 'kk', 'en']" :key="code" type="button" :class="{ 'is-active': locale === code }" @click="setLocale(code)">{{ code }}</button>
+          <button v-for="code in LOCALES" :key="code" type="button" :class="{ 'is-active': locale === code }" :aria-pressed="locale === code" @click="setLocale(code)">{{ code }}</button>
         </div>
 
         <div class="header-button-price">

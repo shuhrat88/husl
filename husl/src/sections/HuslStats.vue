@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { useI18n } from '../composables/useI18n';
 
 const statsSection = ref(null);
-const { locale, t } = useI18n();
+const { intlLocaleTag, t } = useI18n();
 
 const stats = ref([
   { value: 0, target: 15, suffix: 'stats.years', label: 'stats.market' },
@@ -69,7 +69,7 @@ onUnmounted(() => {
     <section ref="statsSection" class="stats">
       <div v-for="stat in stats" :key="stat.target" class="stats__item">
         <strong class="stats__value">
-          {{ stat.value.toLocaleString(locale === 'kk' ? 'kk-KZ' : locale === 'en' ? 'en-US' : 'ru-RU') }}{{ stat.suffix.startsWith('stats.') ? ` ${t(stat.suffix)}` : stat.suffix }}
+          {{ stat.value.toLocaleString(intlLocaleTag) }}{{ stat.suffix.startsWith('stats.') ? ` ${t(stat.suffix)}` : stat.suffix }}
         </strong>
 
         <span class="stats__label">

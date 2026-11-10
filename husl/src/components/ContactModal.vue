@@ -7,21 +7,24 @@ const isSent = ref(false);
 const form = ref({ name: '', phone: '', country: '', city: '', customCity: '', comment: '' });
 const { t } = useI18n();
 
+// Keys are the country names in Russian (internal ids); labels come from i18n.
+// City values are i18n ids from `cities.*`; 'other' maps to modal.otherCity.
 const citiesByCountry = {
-  'Армения': ['Ереван', 'Гюмри', 'Ванадзор', 'Другой город'],
-  'Азербайджан': ['Баку', 'Гянджа', 'Сумгаит', 'Другой город'],
-  'Беларусь': ['Минск', 'Гомель', 'Брест', 'Другой город'],
-  'Казахстан': ['Алматы', 'Астана', 'Шымкент', 'Караганда', 'Другой город'],
-  'Кыргызстан': ['Бишкек', 'Ош', 'Джалал-Абад', 'Другой город'],
-  'Молдова': ['Кишинёв', 'Бельцы', 'Кагул', 'Другой город'],
-  'Россия': ['Москва', 'Санкт-Петербург', 'Казань', 'Екатеринбург', 'Новосибирск', 'Другой город'],
-  'Таджикистан': ['Душанбе', 'Худжанд', 'Бохтар', 'Другой город'],
-  'Узбекистан': ['Ташкент', 'Самарканд', 'Наманган', 'Андижан', 'Другой город'],
+  'Армения': ['yerevan', 'gyumri', 'vanadzor', 'other'],
+  'Азербайджан': ['baku', 'ganja', 'sumgait', 'other'],
+  'Беларусь': ['minsk', 'gomel', 'brest', 'other'],
+  'Казахстан': ['almaty', 'astana', 'shymkent', 'karaganda', 'other'],
+  'Кыргызстан': ['bishkek', 'osh', 'jalalabad', 'other'],
+  'Молдова': ['chisinau', 'balti', 'cahul', 'other'],
+  'Россия': ['moscow', 'spb', 'kazan', 'yekaterinburg', 'novosibirsk', 'other'],
+  'Таджикистан': ['dushanbe', 'khujand', 'bokhtar', 'other'],
+  'Узбекистан': ['tashkent', 'samarkand', 'namangan', 'andijan', 'other'],
 };
 
 const countries = Object.keys(citiesByCountry);
 const cities = computed(() => citiesByCountry[form.value.country] || []);
 const countryLabel = (country) => t('geography.countries')[countries.indexOf(country)] || country;
+const cityLabel = (city) => (city === 'other' ? t('modal.otherCity') : t(`cities.${city}`));
 
 const open = () => {
   isOpen.value = true;
@@ -75,8 +78,8 @@ onUnmounted(() => {
             <label>{{ t('modal.name') }}<input v-model.trim="form.name" type="text" autocomplete="name" required></label>
             <label>{{ t('modal.phone') }}<input v-model.trim="form.phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 700 000 00 00" required></label>
             <label>{{ t('modal.country') }}<select v-model="form.country" required @change="changeCountry"><option value="" disabled>{{ t('modal.selectCountry') }}</option><option v-for="country in countries" :key="country" :value="country">{{ countryLabel(country) }}</option></select></label>
-            <label>{{ t('modal.city') }}<select v-model="form.city" :disabled="!form.country" required><option value="" disabled>{{ t('modal.selectCity') }}</option><option v-for="city in cities" :key="city" :value="city">{{ city === 'Другой город' ? t('modal.otherCity') : city }}</option></select></label>
-            <label v-if="form.city === 'Другой город'">{{ t('modal.customCity') }}<input v-model.trim="form.customCity" type="text" autocomplete="address-level2" required></label>
+            <label>{{ t('modal.city') }}<select v-model="form.city" :disabled="!form.country" required><option value="" disabled>{{ t('modal.selectCity') }}</option><option v-for="city in cities" :key="city" :value="city">{{ cityLabel(city) }}</option></select></label>
+            <label v-if="form.city === 'other'">{{ t('modal.customCity') }}<input v-model.trim="form.customCity" type="text" autocomplete="address-level2" required></label>
             <label>{{ t('modal.comment') }} <small>{{ t('modal.optional') }}</small><textarea v-model.trim="form.comment" rows="3" :placeholder="t('modal.commentPlaceholder')"></textarea></label>
             <button type="submit">{{ t('modal.submit') }} <b>→</b></button>
           </form>
@@ -84,7 +87,7 @@ onUnmounted(() => {
 
         <div v-else class="contact-modal__success">
           <p>{{ t('modal.successEyebrow') }}</p>
-          <h2>{{ t('modal.thanks') }} {{ form.name }}!</h2>
+          <h2>{{ t('modal.thanks', { name: form.name }) }}</h2>
           <span>{{ t('modal.successText') }}</span>
           <button type="button" @click="close">{{ t('modal.close') }}</button>
         </div>

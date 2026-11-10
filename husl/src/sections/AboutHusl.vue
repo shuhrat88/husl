@@ -7,6 +7,12 @@ import {
 import { useI18n } from '../composables/useI18n'
 
 const { t } = useI18n()
+
+const advantages = [
+  { icon: Package, key: 'about.models' },
+  { icon: Truck, key: 'about.delivery' },
+  { icon: Handshake, key: 'about.partnership' },
+]
 </script>
 
 <template>
@@ -16,11 +22,12 @@ const { t } = useI18n()
         <div class="husl-label">{{ t('about.eyebrow') }}</div>
         <div class="husl-title"><template v-for="(line, index) in t('about.title').split('|')" :key="line">{{ line }}<br v-if="index < t('about.title').split('|').length - 1"></template></div>
         <div class="husl-description">{{ t('about.description') }}</div>
-        <div class="husl-advantages">
-            <div class="actual-models"><Package class="box-models" /> {{ t('about.models') }}</div>
-            <div class="stable-supplies"><Truck class="truck-supplies" />{{ t('about.delivery') }}</div>
-            <div class="long-term-cooperation"><Handshake class="handshake-cooperation" />{{ t('about.partnership') }}</div>
-        </div>
+        <ul class="husl-advantages">
+          <li v-for="item in advantages" :key="item.key" class="husl-advantage">
+            <span class="husl-advantage__icon" aria-hidden="true"><component :is="item.icon" :size="34" :stroke-width="1.6" /></span>
+            <span class="husl-advantage__text">{{ t(item.key) }}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -64,66 +71,41 @@ const { t } = useI18n()
     width: 650px;
     max-width: 100%;
     padding-top: 20px;
-    
     line-height: 1.5;
     padding-right: 0;
 }
 
+/* One grid for all three items: identical icon box, aligned text column. */
 .husl-advantages{
+    list-style: none;
     padding: 50px 0px 50px 0px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 650px;
     max-width: 100%;
-    justify-content: space-between;
     gap: 20px;
 }
 
-.actual-models{
-    font-size: 20px;
-    font-weight: 500px;
-    padding-bottom: 20px;
+.husl-advantage{
     display: flex;
-    width: 200px;
-    padding-left: 15px;
-    .box-models{
-        width: 80px;
-        height: 53px;
-        padding-right: 15px;
-        padding-bottom: 6px;
-
-    }
+    align-items: center;
+    gap: 14px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
 }
 
-.stable-supplies{
-    font-size: 20px;
-    font-weight: 500px;
-    padding-bottom: 20px;
+.husl-advantage__icon{
+    flex: 0 0 56px;
+    width: 56px;
+    height: 56px;
     display: flex;
-    width: 200px;
-    padding-left: 15px;
-    .truck-supplies{
-        width: 80px;
-        height: 53px;
-        padding-right: 15px;
-        padding-bottom: 6px;
-
-    }
+    align-items: center;
+    justify-content: center;
 }
 
-.long-term-cooperation{
-    font-size: 20px;
-    font-weight: 500px;
-    padding-bottom: 20px;
-    display: flex;
-    width: 200px;
-    padding-left: 15px;
-    .handshake-cooperation{
-        width: 100px;
-        height: 60px;
-        padding-right: 15px;
-        padding-bottom: 6px;
-        transform: scale(1.6);
-    }
+.husl-advantage__icon svg{
+    display: block;
 }
 
 @media (max-width: 760px) {
@@ -132,9 +114,7 @@ const { t } = useI18n()
   .husl-label { font-size: 12px; padding: 0 0 14px; letter-spacing: 1.5px; }
   .husl-title { font-size: clamp(32px, 9vw, 40px); line-height: 1.08; }
   .husl-description { font-size: 17px; padding-top: 18px; }
-  .husl-advantages { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 30px 0 0; }
-  .actual-models, .stable-supplies, .long-term-cooperation { align-items: center; font-size: 17px; min-height: 48px; padding: 0; width: auto; }
-  .actual-models .box-models, .stable-supplies .truck-supplies { flex: 0 0 54px; height: 42px; width: 54px; }
-  .long-term-cooperation .handshake-cooperation { flex: 0 0 54px; height: 42px; transform: none; width: 54px; }
+  .husl-advantages { grid-template-columns: 1fr; gap: 10px; padding: 30px 0 0; }
+  .husl-advantage { font-size: 17px; min-height: 48px; }
 }
 </style>
